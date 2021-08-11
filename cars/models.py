@@ -1,15 +1,18 @@
 from django.db import models
+from django.db.models.aggregates import Max
 from django.db.models.fields import CharField
 from django.urls import reverse
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin,BaseUserManager
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 choices=['personal','Business']
 trans=['Manual','Automatic']
 fuel=['Diesel Fuel','benzine','hybrid','electric']
 paymentMethod=['Cash','installments']
-class User(models.Model):# change it to account
+class UserAccount(models.Model):# change it to account
     id_user=models.IntegerField()
     name = models.CharField(max_length=200)
-    email= models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
+    email= models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)# maybe on_delete=models.RESTRICT
     email= models.EmailField(max_length=200 , unique=True)
     password=models.CharField(max_length=200)
     role = models.CharField( max_length=10)
@@ -33,17 +36,33 @@ class CarInfo(models.Model):
     documents=models.CharField(max_length=200)
     insurance=models.CharField(max_length=200)
     km=models.IntegerField()
-    id_user=models.ForeignKey(User, blank=True,null=True,on_delete=models.CASCADE)
+    id_user=models.ForeignKey(UserAccount, blank=True,null=True,on_delete=models.CASCADE)
     approved=models.BooleanField()
-    price=models.IntegerField()
+    price=models.PositiveIntegerField(
+        verbose_name=("price"),
+        help_text=("min price is 1000 JD"),
+        validators=[MinValueValidator(1000)],
+        error_messages={
+            "name":{
+                "min_price":("the price must be more than 1000 JD"),
+            },
+        },
+    )
     payment_type=models.IntegerField()
     location=models.CharField(max_length=200)
-    show=models.BooleanField(default=False)
+    show=models.BooleanField(default=False)# if the product is new and we are in new page show , otherwise hide
 
 class Images(models.Model):
     images_id=models.IntegerField()
     image=models.CharField(max_length=300)
+    # image =models.ImageField(
+    #     verbose_name=("image"),
+    #     height_field=("upload a car image"),
+    #     upload_to="images/",
+    #     default="images/defualt.png"
+    # )
     id_info=models.ForeignKey(CarInfo,blank=True,null=True,on_delete=models.CASCADE)
+
 
 
 class Post(models.Model):
@@ -56,7 +75,7 @@ class FeedBack(models.Model):
     feedback_id=models.IntegerField()
     text = models.TextField(max_length=500)
     sender_name=CharField(max_length=200)
-    id_user=models.ForeignKey(User, blank=True,null=True, on_delete=models.CASCADE)
+    id_user=models.ForeignKey(UserAccount, blank=True,null=True, on_delete=models.CASCADE)
     email=models.EmailField(max_length=200)
 
 

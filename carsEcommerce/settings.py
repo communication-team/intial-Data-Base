@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-t5g_6_djq$ygo#yuvj+ec6fw$wut=^*+!)jbv9kbou$9cdr7gb
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1']
 
 
 # Application definition
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'cars.apps.CarsConfig',# new 1
     'rest_framework',# new 2 
 ]
-# ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,7 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ]
 }
 # Internationalization
@@ -122,6 +123,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+import os
 
 STATIC_URL = '/static/'
 

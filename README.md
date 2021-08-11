@@ -27,9 +27,7 @@ Since we created a new database model we need to create a migration file to go a
 3.  `(.venv) $ python manage.py createsuperuser`
 4.  username: mohammad password: 0000
 5.  open admin apps import the model and register
-
-(.venv) $ python manage.py migrate`
-17. run the server and add player 
+6 . run the server and add player 
 
 # now REST part 
 
@@ -42,3 +40,5 @@ add settings , installapp => 'rest_framework'. allow use to run it as rest app ,
 21. add file in app serializers.py and add class to it , link between view and data from database
 > serializers ; somthing between database and view , convert it in JSON style
 22. open view from app => from rest get stuff
+
+for images we need packegs: pillow
