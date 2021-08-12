@@ -41,4 +41,4 @@ add settings , installapp => 'rest_framework'. allow use to run it as rest app ,
 > serializers ; somthing between database and view , convert it in JSON style
 22. open view from app => from rest get stuff
 
-for images we need packegs: pillow
+for images we need packegs: pillow and use imagefield in model and put media folder and add it in settings 
