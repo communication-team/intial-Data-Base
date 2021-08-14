@@ -19,7 +19,7 @@ urlpatterns = [
     path('carinfo/<int:pk>/',CarInfoDetials.as_view(),name='CarInfo_detials'),  
     path('carinfo/all_access/<int:pk>/',CarInfoAllOpreations.as_view(),name='CarInfo_detials_all_access'),
 
-
+    # images part 
     path('images', ImagesList.as_view(),name='Images'),
     path('images/create/',ImagesCreate.as_view(),name='Images_create'),
     path('images/<int:pk>/',ImagesDetials.as_view(),name='Images_detials'), 

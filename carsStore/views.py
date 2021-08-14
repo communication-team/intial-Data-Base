@@ -11,7 +11,6 @@ class FeedBackList(ListAPIView):
     # queryset=FeedBack.objects.all()
     queryset=FeedBack.objects.raw('SELECT * FROM "carsStore_feedback"')
     permission_classes = (PermissionsClass,)
- 
     serializer_class=FeedBackSerializer
 
 class FeedBackDetials(RetrieveAPIView):

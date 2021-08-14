@@ -8,7 +8,7 @@ class MyAppUser( models.Model ) :
     # def __unicode__( self ) :
     #    return self.user.username
 
-    user    = models.ForeignKey( 'auth.User',
+    user = models.ForeignKey( 'auth.User',
     on_delete=models.CASCADE, )
         
 
@@ -25,9 +25,8 @@ class MyAppUser( models.Model ) :
 class CarInfo(models.Model):
     id_info=models.AutoField(primary_key=True)
     carModel=models.CharField(max_length=200,null=True) 
-    id_user=models.ForeignKey('auth.User',related_name='user', blank=True,null=True,on_delete=models.CASCADE)
-
-   
+    # id_user=models.ForeignKey('auth.User',related_name='user', blank=True,on_delete=models.CASCADE)
+    id_user=models.ForeignKey('auth.User',related_name='user',null=True, blank=True,on_delete=models.CASCADE)
     phone   = models.CharField( max_length = 135,null=True)
     user_name   = models.CharField( max_length = 135,null=True )
     title=models.CharField(max_length=200)
@@ -53,12 +52,14 @@ class CarInfo(models.Model):
    
 class Images(models.Model):
     id_images=models.AutoField(primary_key=True)
-    image=models.TextField()   
+    image=models.TextField()
     id_info=models.ForeignKey(CarInfo,blank=True,null=True,on_delete=models.CASCADE)
+    # id_info=models.ForeignKey(CarInfo,blank=True,on_delete=models.CASCADE)
 
 class Post(models.Model):
     id_post=models.AutoField(primary_key=True)
     id_info=models.ForeignKey(CarInfo , blank=True,null=True , on_delete=models.CASCADE)
+    # id_info=models.ForeignKey(CarInfo , blank=True , on_delete=models.CASCADE)
     text = models.TextField()
 
 class FeedBack(models.Model):
@@ -66,4 +67,5 @@ class FeedBack(models.Model):
     text = models.TextField(max_length=500)
     sender_name=models.CharField(max_length=200)
     id_user=models.ForeignKey('auth.User', blank=True,null=True, on_delete=models.CASCADE)
+    # id_user=models.ForeignKey('auth.User', blank=True, on_delete=models.CASCADE)
     email=models.CharField(max_length=200)
