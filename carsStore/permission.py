@@ -17,5 +17,6 @@ class PermissionsClass(permissions.BasePermission):
             return True
         # If the logged in user same as the author
         # Write persmission
-        return request.user == obj.id_user
+        print("=============================> ",request.user)
+        return obj.id_user == request.user
         # return request.owner == obj.author  
