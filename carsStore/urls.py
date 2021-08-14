@@ -23,7 +23,9 @@ urlpatterns = [
     path('images', ImagesList.as_view(),name='Images'),
     path('images/create/',ImagesCreate.as_view(),name='Images_create'),
     path('images/<int:pk>/',ImagesDetials.as_view(),name='Images_detials'), 
+    # path(we need to add new path for delete or updata), 
 
+    # post part 
 
     path('post',PostList.as_view(),name='Post'),
     path('post/create/',PostCreate.as_view(),name='Post_create'),
