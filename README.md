@@ -1,5 +1,5 @@
 # permission : 
 1. the path is text , we need it as path 
 2. we cant delete and edit the post and image.
-3. we need new fun to control premission , example 
-   1. return obj.id_info.id_user == request.user
+3. we need to make connect foreign key automaticlly; the user can not choose.
+4. all the post hidden , the admin accept it  

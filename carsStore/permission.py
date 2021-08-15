@@ -20,3 +20,13 @@ class PermissionsClass(permissions.BasePermission):
         return obj.id_user == request.user
         # return obj.id_info.id_user == request.user
         # return request.owner == obj.author  
+class PermissionsClassCarInfo(permissions.IsAuthenticatedOrReadOnly):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.id_user == request.user
+class PermissionsClassImages(permissions.IsAuthenticatedOrReadOnly):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.id_info.id_user == request.user

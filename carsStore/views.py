@@ -2,7 +2,7 @@ from django.db import reset_queries
 from django.db.models.fields import NOT_PROVIDED
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView,RetrieveAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
-from .permission import PermissionsClass
+from .permission import PermissionsClass,PermissionsClassCarInfo,PermissionsClassImages
 from .models import *
 from .serializer import *
 from django.db.models import Q
@@ -71,10 +71,11 @@ class CarInfoDetials(RetrieveAPIView):
     permission_classes = (PermissionsClass,)  
 
 
-class CarInfoCreate(CreateAPIView):
+class CarInfoCreate(CreateAPIView,PermissionsClassCarInfo):# here 
+    permission_classes = (PermissionsClassCarInfo,)
     queryset=CarInfo.objects.all()
     serializer_class=CarInfoSerializer
-    permission_classes = (PermissionsClass,)
+    # permission_classes = (PermissionsClass,)
 
 
 class CarInfoAllOpreations(RetrieveUpdateDestroyAPIView):
@@ -92,10 +93,10 @@ class ImagesDetials(RetrieveAPIView):
     serializer_class=ImagesSerializer
 
 
-class ImagesCreate(CreateAPIView):
+class ImagesCreate(CreateAPIView,PermissionsClassImages):
+    permission_classes = (PermissionsClassImages,)
     queryset=Images.objects.all()
     serializer_class=ImagesSerializer
-    permission_classes = (PermissionsClass,)
 
 
 class ImagesAllOpreations(RetrieveUpdateDestroyAPIView):
@@ -114,10 +115,10 @@ class PostDetials(RetrieveAPIView):
     serializer_class=PostSerializer
 
 
-class PostCreate(CreateAPIView):
+class PostCreate(CreateAPIView,PermissionsClassImages):
     queryset=Post.objects.all()
     serializer_class=PostSerializer
-    permission_classes = (PermissionsClass,)
+    permission_classes = (PermissionsClassImages,)
 
 
 class PostAllOpreations(RetrieveUpdateDestroyAPIView):
