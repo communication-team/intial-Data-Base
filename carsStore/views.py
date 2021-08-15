@@ -24,7 +24,10 @@ class FeedBackCreate(CreateAPIView):
     serializer_class=FeedBackSerializer
     permission_classes = (PermissionsClass,)
 
-
+class FeedBackAllOpreations(RetrieveUpdateDestroyAPIView):
+    queryset=FeedBack.objects.all()
+    serializer_class=FeedBackSerializer
+    permission_classes = (PermissionsClass,)
 
 # class CarsList(ListAPIView):
 #     queryset=Cars.objects.all()
@@ -124,4 +127,4 @@ class PostCreate(CreateAPIView,PermissionsClassImages):
 class PostAllOpreations(RetrieveUpdateDestroyAPIView):
     queryset=Post.objects.all()
     serializer_class=PostSerializer
-    permission_classes = (PermissionsClass,)
+    permission_classes = (PermissionsClassImages,)
