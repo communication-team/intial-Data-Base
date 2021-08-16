@@ -6,7 +6,8 @@ from .permission import PermissionsClass,PermissionsClassCarInfo,PermissionsClas
 from .models import *
 from .serializer import *
 from django.db.models import Q
-
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 class FeedBackList(ListAPIView):
     # queryset=FeedBack.objects.all()
     queryset=FeedBack.objects.raw('SELECT * FROM "carsStore_feedback"')
@@ -58,7 +59,9 @@ class CarInfoList(ListAPIView):
         print(queryset2)
         print(temp)
         if queryset2:          
-            user=user.filter(**temp)           
+            user=user.filter(**temp)  
+            
+            user.aggregate(Max('price')) # {         
         return user
     # queryset=CarInfo.objects.all().filter(carModel='KIA',approved=False)
     
@@ -74,11 +77,21 @@ class CarInfoDetials(RetrieveAPIView):
     permission_classes = (PermissionsClass,)  
 
 
-class CarInfoCreate(CreateAPIView,PermissionsClassCarInfo):# here 
-    permission_classes = (PermissionsClassCarInfo,)
-    queryset=CarInfo.objects.all()
-    serializer_class=CarInfoSerializer
-    # permission_classes = (PermissionsClass,)
+
+@api_view(['POST'])
+def CarInfoCreate(request):
+    serilizer = CarInfoSerializer(data=request.data)
+
+    if serilizer.is_valid():
+        serilizer.save()
+
+    return Response(serilizer.data)
+
+# class CarInfoCreate(CreateAPIView,PermissionsClassCarInfo):# here 
+#     permission_classes = (PermissionsClassCarInfo,)
+#     queryset=CarInfo.objects.all()
+#     serializer_class=CarInfoSerializer
+#     # permission_classes = (PermissionsClass,)
 
 
 class CarInfoAllOpreations(RetrieveUpdateDestroyAPIView):

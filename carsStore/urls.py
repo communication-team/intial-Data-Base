@@ -16,7 +16,7 @@ urlpatterns = [
 
 
     path('carinfo', CarInfoList.as_view(),name='CarInfo'),
-    path('carinfo/create/',CarInfoCreate.as_view(),name='CarInfo_create'),
+    path('carinfo/create/',CarInfoCreate,name='CarInfo_create'),
     path('carinfo/<int:pk>/',CarInfoDetials.as_view(),name='CarInfo_detials'),  
     path('carinfo/all_access/<int:pk>/',CarInfoAllOpreations.as_view(),name='CarInfo_detials_all_access'),
 
