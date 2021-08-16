@@ -4,4 +4,4 @@ build:
 release:
   image: web
 run:
-  web: gunicorn carsStore_project.wsgi
+  web: gunicorn carsStore.wsgi
