@@ -47,11 +47,13 @@ INSTALLED_APPS = [
     'carsStore.apps.CarsstoreConfig',
     'rest_framework',
     'whitenoise.runserver_nostatic',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -160,3 +162,5 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# CORS_ORIGIN_WHITLIST='localhost:3000',
+CORS_ORIGIN_ALLOW_ALL = True
