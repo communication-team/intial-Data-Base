@@ -50,9 +50,12 @@ class CarInfo(models.Model):
     def __str__(self):
         return self.title
    
+def upload_to(instance,filename):
+    return 'posts/{filename}'.format(filename=filename)
 class Images(models.Model):
     id_images=models.AutoField(primary_key=True)
-    image=models.TextField()
+    # image=models.TextField()
+    image=models.ImageField('Image',upload_to=upload_to,null=False)
     id_info=models.ForeignKey(CarInfo,blank=True,null=True,on_delete=models.CASCADE)
     # id_info=models.ForeignKey(CarInfo,blank=True,on_delete=models.CASCADE)
 

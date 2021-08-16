@@ -98,6 +98,7 @@ class ImagesDetials(RetrieveAPIView):
 
 class ImagesCreate(CreateAPIView,PermissionsClassImages):
     permission_classes = (PermissionsClassImages,)
+    # parser_classes = [MultiPartParser,FormParser]
     queryset=Images.objects.all()
     serializer_class=ImagesSerializer
 
