@@ -45,7 +45,7 @@ class CarInfo(models.Model):
     price=models.CharField( max_length=200)
     payment_type=models.CharField(max_length=200)
     location=models.CharField(max_length=200)
-    primary_image=models.CharField(max_length=200)
+    primary_image=models.TextField()
 
    
     def __str__(self):

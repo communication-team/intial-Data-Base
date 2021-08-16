@@ -1,6 +1,7 @@
 from django.db import reset_queries
 from django.db.models.fields import NOT_PROVIDED
 from django.shortcuts import render
+from rest_framework import response
 from rest_framework.generics import ListAPIView,RetrieveAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
 from .permission import PermissionsClass,PermissionsClassCarInfo,PermissionsClassImages
 from .models import *
@@ -80,12 +81,15 @@ class CarInfoDetials(RetrieveAPIView):
 
 @api_view(['POST'])
 def CarInfoCreate(request):
+    print(type(request.data))
     serilizer = CarInfoSerializer(data=request.data)
-
     if serilizer.is_valid():
         serilizer.save()
+        return Response("serilizer.data")
+    # else:
+    #     return Response("no")
 
-    return Response(serilizer.data)
+    
 
 # class CarInfoCreate(CreateAPIView,PermissionsClassCarInfo):# here 
 #     permission_classes = (PermissionsClassCarInfo,)
