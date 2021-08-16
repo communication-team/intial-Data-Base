@@ -19,6 +19,8 @@ Including another URLconf
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 # ]
+from django.conf import Settings, settings
+from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path,include
@@ -31,3 +33,4 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/',include('rest_framework.urls',namespace='rest_framework'))# this path for testing perposing 
 ]
+urlpatterns+= static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
