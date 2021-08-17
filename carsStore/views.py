@@ -111,6 +111,9 @@ def CarInfoCreate(request):
     if serilizer.is_valid():
         serilizer.save()
         return Response("serilizer.data")
+    else:
+        print('ffffffffffffffffffffffffff')
+        return Response("dddd.data")
 
 
 
