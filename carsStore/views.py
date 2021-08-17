@@ -1,14 +1,18 @@
 from django.db import reset_queries
 from django.db.models.fields import NOT_PROVIDED
+from django.http import request
 from django.shortcuts import render
 from rest_framework import response
 from rest_framework.generics import ListAPIView,RetrieveAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .permission import PermissionsClass,PermissionsClassCarInfo,PermissionsClassImages
 from .models import *
 from .serializer import *
 from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt.backends import TokenBackend
+from django.contrib.auth.hashers import make_password
 class FeedBackList(ListAPIView):
     # queryset=FeedBack.objects.all()
     queryset=FeedBack.objects.raw('SELECT * FROM "carsStore_feedback"')
@@ -62,7 +66,7 @@ class CarInfoList(ListAPIView):
         if queryset2:          
             user=user.filter(**temp)  
             
-            user.aggregate(Max('price')) # {         
+             # {         
         return user
     # queryset=CarInfo.objects.all().filter(carModel='KIA',approved=False)
     
@@ -78,11 +82,45 @@ class CarInfoDetials(RetrieveAPIView):
     permission_classes = (PermissionsClass,)  
 
 
+@api_view(['GET'])
+def getUserIngo(request):
+    token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+    data = {'token': token}
+    
+    valid_data = TokenBackend(algorithm='HS256').decode(token,verify=False)
+    print(valid_data)
+    user = valid_data['user_id']
+    request.user = user
+
+    queryset = User.objects.get(id=int(user))
+    serilizer = UserInfoSerializer(queryset)
+    return Response(serilizer.data)
+
+
+ 
+   
+
+
 
 @api_view(['POST'])
+
+
 def CarInfoCreate(request):
-    print(type(request.data))
+    print(request.data)
     serilizer = CarInfoSerializer(data=request.data)
+    if serilizer.is_valid():
+        serilizer.save()
+        return Response("serilizer.data")
+
+
+
+@api_view(['POST'])
+def AddUser(request):
+    print(make_password(request.data['password']))
+    data=request.data
+    data._mutable = True
+    data['password']=make_password(request.data['password'])
+    serilizer = UserInfoSerializer(data=data)
     if serilizer.is_valid():
         serilizer.save()
         return Response("serilizer.data")

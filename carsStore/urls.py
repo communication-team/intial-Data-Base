@@ -14,6 +14,8 @@ urlpatterns = [
     # path('cars/create/',CarsCreate.as_view(),name='Cars_create'),
     # path('cars/<int:pk>/',CarsDetials.as_view(),name='Cars_detials'), 
 
+    path('userinfo/', getUserIngo,name='userinfo'),
+    path('adduser/', AddUser,name='adduser'),
 
     path('carinfo', CarInfoList.as_view(),name='CarInfo'),
     path('carinfo/create/',CarInfoCreate,name='CarInfo_create'),
