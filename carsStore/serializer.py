@@ -45,6 +45,13 @@ class CarInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model=CarInfo
         fields="__all__"
+        
+class UserInfoSerializer(serializers.ModelSerializer):
+   
+
+    class Meta:
+        model=User
+        fields="__all__"
      
         # fields=('user','id_info','id_cars_id','id_user_id','brand','year','color','transmission','cylinder','fuel','engine_size','status','documents','insurance','km','approved','price','payment_type','location')
  
